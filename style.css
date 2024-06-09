@@ -1,0 +1,45 @@
+.mode-li{
+    display: flex;
+    align-items: center;
+}
+.mode-div{
+    background-color: black;
+    width: 50px;
+    height: 25px;
+    border-radius: 50px;
+    position: relative;
+   
+}
+.mode-boll{
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border-radius: 50%;
+    top: 3px;
+    left: 2px;
+    transition: all .2s linear;
+}
+.mode-click{
+    left: 28px;
+    background-color: blue;
+}
+.dark-mode{
+background-color: black !important;
+}
+.dark-mode a{
+    color: white !important;
+}
+
+.dark-mode .mode-div{
+    background-color: white;
+}
+
+.dark-mode .container{
+    color: white
+}
+
+.dark-mode .navbar-toggler{
+    background-color: white;
+}

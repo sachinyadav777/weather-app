@@ -1,19 +1,24 @@
-// const url = ;
+
 const options = {
     method: 'GET',
     headers: {
-        'X-RapidAPI-Key': '8a424129c9mshdef92f546835a05p184932jsna11d2507af65',
-        'X-RapidAPI-Host': 'weather-by-api-ninjas.p.rapidapi.com'
+        'x-rapidapi-key': '8a424129c9mshdef92f546835a05p184932jsna11d2507af65',
+        'x-rapidapi-host': 'weather-by-api-ninjas.p.rapidapi.com'
     }
 };
 
+// logic for fetch data and handle error........
 const getweather = (city) => {
-cityName.innerHTML = city
     let promise = fetch('https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=' + city, options)
+
     promise.then((Response) => {
+        if (!Response.ok) {
+            throw new Error('Network response was not ok');
+        }
         return Response.json()
     }).then((Response) => {
         // console.log(Response.temp)
+        cityName.innerHTML = city
         cloud_pct.innerHTML = Response.cloud_pct
         feels_like.innerHTML = Response.feels_like
         humidity.innerHTML = Response.humidity
@@ -26,15 +31,23 @@ cityName.innerHTML = city
         wind_degrees.innerHTML = Response.wind_degrees
         wind_speed.innerHTML = Response.wind_speed
         wind_speed2.innerHTML = Response.wind_speed
+    }).catch(function (error) {
+        if (city === "") {
+            alert("please fill city name!")
+        } else {
+            alert("In this city weather not found!")
+        }
+        
     })
 }
 
-submit.addEventListener("click", (e)=>{
+getweather("Delhi")
+
+// logic for search city weather
+submit.addEventListener("click", (e) => {
     e.preventDefault()
     getweather(city.value)
 })
-
-getweather("Delhi")
 
 let obj = {
     kanpur: 'https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=kanpur',
@@ -46,15 +59,13 @@ let obj = {
 
 }
 
-// 
-
 //
-for(let i =0;i<Object.keys(obj).length;i++){
-   
+for (let i = 0; i < Object.keys(obj).length; i++) {
+
     let promise = fetch(obj[Object.keys(obj)[i]], options)
-    promise.then((Response)=>{
+    promise.then((Response) => {
         return Response.json()
-    }).then((Response)=>{
+    }).then((Response) => {
         // console.log(response)
         let x = document.querySelector(`.data${i}`)
         // let y = x.querySelector(".cloud_pct")
@@ -70,15 +81,15 @@ for(let i =0;i<Object.keys(obj).length;i++){
 
     })
 }
-console.log(obj[Object.keys(obj)[0]])
-
-// weather for other places.....
 
 
-// try {
-// 	const response = await fetch(url, options);
-// 	const result = await response.text();
-// 	console.log(result);
-// } catch (error) {
-// 	console.error(error);
-// }
+//logic for dark mode...
+
+document.querySelector(".mode-div").addEventListener('click',()=>{
+    let body = document.querySelector("body")
+    console.log(body)
+   let boll = document.querySelector(".mode-boll")
+   boll.classList.toggle("mode-click")
+   body.classList.toggle("dark-mode")
+   body.querySelector("nav").classList.toggle("dark-mode")
+})
